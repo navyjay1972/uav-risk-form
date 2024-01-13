@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <!-- ... other head elements ... -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datepicker@1.11.6/dist/datepicker.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/datepicker@1.11.6/dist/datepicker.min.js"></script>
+
+    <!-- ... your existing head content ... -->
+    <title>Risk Assessment Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .header {
+            background-color: #9933cc;
+            color: #ffffff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        form {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        ul.flex-container, table.flex-container {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .flex-item, th, td {
+            background: #F8F9F9;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        select, input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        /* Add this style for date input */
+        input[type="date"] {
+            min-width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border-color: black;   
+            -webkit-appearance: textfield; /* Disable default appearance on Safari/Chrome */
+        }
+
+        /* Add this style for date input arrow icon (for some browsers) */
+        input[type="date"]::-webkit-inner-spin-button,
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            display: none;
+        }
+        /* CSS for styling custom placeholder on mobile devices */
+        @media only screen and (max-width: 767px) {
+            input[type="date"]::before {
+                content: attr(placeholder);
+                display: block;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                color: #808080;
+            }
+
+            input[type="date"]:focus::before,
+            input[type="date"].has-value::before {
+                display: none;
+            }
+        }
+
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button#1 {
+            background: #3498db;
+        }
+
+        button#reset {
+            background-color: #e74c3c;
+        }
+
+
+        button#pdf {
+            background: #2ecc71;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .footer {
+            background-color: #0099cc;
+            color: #ffffff;
+            text-align: center;
+            font-size: 12px;
+            padding: 15px;
+        }
+
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script>
+        // Script to add custom placeholder for date input on mobile devices
+        var dateInput = document.getElementById('date');
+
+        dateInput.addEventListener('focus', function() {
+            dateInput.setAttribute('data-placeholder', dateInput.getAttribute('placeholder'));
+            dateInput.removeAttribute('placeholder');
+        });
+
+        dateInput.addEventListener('blur', function() {
+            var customPlaceholder = dateInput.getAttribute('data-placeholder');
+            if (customPlaceholder) {
+                dateInput.setAttribute('placeholder', customPlaceholder);
+                dateInput.removeAttribute('data-placeholder');
+            }
+        });
+
+
+        function calculateTotal() {
+            var total = 0;
+            for (var i = 1; i <= 16; i++) {
+                total += Number(document.getElementById("score" + i).value);
+            }
+            document.getElementById("total").value = total;
+        }
+
+        function resetForm() {
+            for (var i = 1; i <= 16; i++) {
+                document.getElementById("risk" + i).value = "0";
+                document.getElementById("score" + i).value = "0";
+            }
+            document.getElementById("total").value = "0";
+        }
+    </script>
+
+</head>
+<body>
+    <form>
+        <div class = "header">
+            <h1>UAS Risk Assessment Form</h1>
+        </div>
+        <ul class="flex-container">
+            <li>
+                <!--input class="form-control" type="text" placeholder="Default input" aria-label="default input example">
+                <label for="rpicName">RPIC Name:</label-->
+                <input class="flex-item" type="text" placeholder="RPIC" id="rpicName" name="rpicName">
+            </li>
+            <li>
+                <!--label for="voName">VO Name:</label-->
+                <input class="flex-item" type="text" placeholder="VO" id="voName" name="voName">
+                <!--label for="location">Location:</label-->
+            </li>
+            <li>
+                <!--label for="date">Date:</label-->
+                <!--input class="flex-item" type="date" color=black id="date" name="date"-->
+                <input class="flex-item" type="date" id="date" name="date" aria-label="Date">
+            </li>
+                <!--label for="location">Location:</label-->
+            <li>
+                <input class="flex-item" type="text" placeholder="Location" id="location" name="location">
+            </li>
+                <!--label for="uasType">UAS Type:</label-->
+            <li>
+                <input class="flex-item"  type="text" placeholder="UAS Type" id="uasType" name="uasType">
+            </li>
+                <!--label for="missionType">Mission Type:</label-->
+            <li>
+                <input class="flex-item" type="text" placeholder="Mission Type" id="missionType" name="missionType">
+            </li>
+        </ul>
+        <!--div class="col-3">
+            <button type="button" id="1" onclick="document.getElementById('date').valueAsDate = new Date();">Today's Date</button>
+        </div-->     
+        <table class="flex-container">
+            <tr>
+                <th>Item</th>
+                <th>Risk</th>
+                <th>Score</th>
+            </tr>
+            <tr>
+                <td>Crew Flight Experience</td>
+                <td>
+                    <select id="risk1" onchange="updateScore(1)">
+                        <option value="0">Low - All crewmembers have flown this mission in the last 60 days</option>
+                        <option value="2">Medium - 1 crewmember has flown this mission in the last 60 days</option>
+                        <option value="4">High - No crew members have flown this mission in the last 60 days</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score1" value="0" readonly></td>
+            </tr>
+            <tr>
+                <td>Crew Currency</td>
+                <td>
+                    <select id="risk2" onchange="updateScore(2)">
+                        <option value="0">Low - All flew in last 30 days</option>
+                        <option value="2">Medium - All flew in last 31- 60 days</option>
+                        <option value="4">High - 1 or more crewmembers flew over 60 days ago</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score2" value="0" readonly></td>
+            </tr>
+            <tr>
+                <td>Crew Fatigue</td>
+                <td>
+                    <select id="risk3" onchange="updateScore(3)">
+                        <option value="0">Low - All Rested</option>
+                        <option value="3">Medium - 1 crewmember feels tired</option>
+                        <option value="6">High - 2 or more crewmembers feel tired</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score3" value="0" readonly></td>
+            </tr>
+            <tr>
+            <tr>
+                <td>Crew Duty Day</td>
+                <td>
+                    <select id="risk4" onchange="updateScore(4)">
+                        <option value="0">Low - Less than 8 hrs</option>
+                        <option value="2">Medium - 8-12 hrs</option>
+                        <option value="4">High - 12-16 hrs</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score4" value="0" readonly></td>
+            </tr>
+            <tr>
+                <td>Mission Type</td>
+                <td>
+                    <select id="risk5" onchange="updateScore(5)">
+                        <option value="0">Low - Currency flight</option>
+                        <option value="1">Medium - Rural</option>
+                        <option value="3">High - Near Public</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score5" value="0" readonly></td>
+            </tr>
+            <tr>
+                <td>Hardware Changes to UAS</td>
+                <td>
+                    <select id="risk6" onchange="updateScore(6)">
+                        <option value="0">Low - None</option>
+                        <option value="1">Medium - Changes with no effect on control</option>
+                        <option value="3">High - Changes that effect control</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score6" value="0" readonly></td>
+            </tr>
+            <tr>
+                <td>Firmware changes to UAS</td>
+                <td>
+                    <select id="risk7" onchange="updateScore(7)">
+                        <option value="0">Low - None</option>
+                        <option value="2">Medium - No new control elements introduced</option>
+                        <option value="3">High - New control elements introduced</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score7" value="0" readonly></td>
+            </tr>
+            <tr>
+                <td>Flight conditions</td>
+                <td>
+                    <select id="risk8" onchange="updateScore(8)">
+                        <option value="0">Low - Day</option>
+                        <option value="1">Medium - Within 1/2 hour of Dusk or Dawn</option>
+                        <option value="5">High - Night</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score8" value="0" readonly></td>
+            </tr>
+            <tr>
+                <td>Visibility</td>
+                <td>
+                    <select id="risk9" onchange="updateScore(9)">
+                        <option value="0">Low - Greater than 10 miles</option>
+                        <option value="2">Medium - 3 to 9 miles</option>
+                        <option value="4">High - Less than 3 miles</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score9" value="0" readonly></td>
+            </tr>
+            <tr>
+                <td>Ceiling in Feet AGL</td>
+                <td>
+                    <select id="risk10" onchange="updateScore(10)">
+                        <option value="0">Low - Greater than 10,000</option>
+                        <option value="1">Medium - 1001 to 9999</option>
+                        <option value="2">High - Less than 1000</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score10" value="0" readonly></td>
+            </tr>
+            <tr>
+                <td>Winds</td>
+                <td>
+                    <select id="risk11" onchange="updateScore(11)">
+                        <option value="0">Low - 0-10 MPH</option>
+                        <option value="2">Medium - 11-18 MPH</option>
+                        <option value="4">High - >18 MPH</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score11" value="0" readonly></td>
+            </tr>
+            <tr>
+                <td>SMS Risk Matrix Results</td>
+                <td>
+                    <select id="risk12" onchange="updateScore(12)">
+                        <option value="0">Low</option>
+                        <option value="5">Medium</option>
+                        <option value="10">High</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score12" value="0" readonly></td>
+            </tr>
+            <tr>
+                <td>Local Authorities Notified</td>
+                <td>
+                    <select id="risk13" onchange="updateScore(13)">
+                        <option value="0">Low - Yes/Ok</option>
+                        <option value="2">Medium - No</option>
+                        <option value="30">High - Authorities refuse</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score13" value="0" readonly></td>
+            </tr>   
+            <tr>
+                <td>Airspace Traffic</td>
+                <td>
+                    <select id="risk14" onchange="updateScore(14)">
+                        <option value="0">Low - None</option>
+                        <option value="5">Medium - Medium Traffic</option>
+                        <option value="10">High - High Traffic</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score14" value="0" readonly></td>
+            </tr> 
+            <tr>
+                <td>Temperture</td>
+                <td>
+                    <select id="risk15" onchange="updateScore(15)">
+                        <option value="0">Low - 40 - 85 Degrees F</option>
+                        <option value="3">Medium - 20-39 or 85-94 Degrees F</option>
+                        <option value="5">High - Less than 20 or more than 95 Degrees F</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score15" value="0" readonly></td>
+            </tr> 
+            <tr>
+                <td>Local Ops Notified</td>
+                <td>
+                    <select id="risk16" onchange="updateScore(16)">
+                        <option value="0">Low - Yes</option>
+                        <option value="2">Medium - Yes/No Response</option>
+                        <option value="5">High - No</option>
+                    </select>
+                </td>
+                <td><input type="number" id="score16" value="0" readonly></td>
+            </tr>               
+            <tr>               
+                <td>Total Score</td>
+                <td></td>
+                <td><input type="number" id="total" value="0" readonly></td>
+            </tr>
+        </table>
+        <button type="button" id="reset" onclick="resetForm()">Reset</button>
+        <button type="button" id="pdf">Create PDF</button>
+    </form>
+    <script> /* Script for exporting  */ 
+        document.getElementById('pdf').addEventListener('click', function() {
+            var doc = new jsPDF();
+
+            // Collecting information from the div portions at the top
+            var rpicName = document.getElementById('rpicName').value;
+            var date = document.getElementById('date').value;
+            var voName = document.getElementById('voName').value;
+            var location = document.getElementById('location').value;
+            var uasType = document.getElementById('uasType').value;
+            var missionType = document.getElementById('missionType').value;
+
+            doc.setFontSize(20);  // Set font size to 20
+            doc.text('RPIC Name: ' + rpicName, 10, 10);
+            doc.text('Date: ' + date, 10, 20);
+            doc.text('VO Name: ' + voName, 10, 30);
+            doc.text('Location: ' + location, 10, 40);
+            doc.text('UAS Type: ' + uasType, 10, 50);
+            doc.text('Mission Type: ' + missionType, 10, 60);
+
+            // Collecting risk data for 16 elements
+            for (var i = 1; i <= 16; i++) {
+                var risk = document.getElementById('risk' + i);
+                var selectedRisk = risk.options[risk.selectedIndex].text;
+                var score = document.getElementById('score' + i).value;
+
+                doc.setFontSize(15);  // Set font size to 15
+                doc.text('Risk ' + i + ': ' + selectedRisk + ', Score: ' + score, 10, 70 + i * 10);
+            }
+
+            var total = document.getElementById('total').value;
+            doc.setFontSize(20);  // Set font size back to 20
+            doc.text('Total Score: ' + total, 10, 70 + 16 * 10 + 10);
+
+            // Save the PDF
+            doc.save('Risk_Assessment_Form.pdf');
+        });
+    </script>
+</body>
+</html>

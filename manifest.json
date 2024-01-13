@@ -1,0 +1,11 @@
+{
+    "name": "UAS Risk Assessment",
+    "version": "1.0.0",
+    "description": "Risk assessment web form for UAS mission at American Water",
+    "manifest_version": 3,
+    "author": "Jason Sladinski",
+    "action":{
+        "default_popup": "index.html",
+        "default_title": "American Water UAS Risk Assessment"
+    }
+}
