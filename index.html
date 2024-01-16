@@ -121,22 +121,16 @@
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
     <script>
-        // Script to add custom placeholder for date input on mobile devices
-        var dateInput = document.getElementById('date');
+        function toggleOtherInput() {
+            var selectBox = document.getElementById('rpicName');
+            var otherInput = document.getElementById('otherRPIC');
 
-        dateInput.addEventListener('focus', function() {
-            dateInput.setAttribute('data-placeholder', dateInput.getAttribute('placeholder'));
-            dateInput.removeAttribute('placeholder');
-        });
-
-        dateInput.addEventListener('blur', function() {
-            var customPlaceholder = dateInput.getAttribute('data-placeholder');
-            if (customPlaceholder) {
-                dateInput.setAttribute('placeholder', customPlaceholder);
-                dateInput.removeAttribute('data-placeholder');
+            if (selectBox.value === 'Other') {
+                otherInput.style.display = 'block';
+            } else {
+                otherInput.style.display = 'none';
             }
-        });
-
+        }
 
         function calculateTotal() {
             var total = 0;
