@@ -121,17 +121,6 @@
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
     <script>
-        function toggleOtherInput() {
-            var selectBox = document.getElementById('rpicName');
-            var otherInput = document.getElementById('otherRPIC');
-
-            if (selectBox.value === 'Other') {
-                otherInput.style.display = 'block';
-            } else {
-                otherInput.style.display = 'none';
-            }
-        }
-
         function calculateTotal() {
             var total = 0;
             for (var i = 1; i <= 16; i++) {
@@ -386,7 +375,20 @@
         <button type="button" id="reset" onclick="resetForm()">Reset</button>
         <button type="button" id="pdf">Create PDF</button>
     </form>
-    <script> /* Script for exporting  */ 
+    <script> 
+        function toggleOtherInput() {
+            console.log('toggleOtherInput function called'); // This line is new
+            var selectBox = document.getElementById('rpicName');
+            var otherInput = document.getElementById('otherRPIC');
+
+            if (selectBox.value === 'Other') {
+                otherInput.style.display = 'block';
+            } else {
+                otherInput.style.display = 'none';
+            }
+        }
+    
+    /* Script for exporting  */ 
         document.getElementById('pdf').addEventListener('click', function() {
             var doc = new jsPDF();
 
