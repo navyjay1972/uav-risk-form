@@ -456,19 +456,27 @@
             doc.text('UAS Type: ' + uasType, 10, 50);
             doc.text('Mission Type: ' + missionType, 10, 60);
 
-            // Collecting risk data for 16 elements
-            for (var i = 1; i <= 16; i++) {
-                var risk = document.getElementById('risk' + i);
-                var selectedRisk = risk.options[risk.selectedIndex].text;
-                var score = document.getElementById('score' + i).value;
+            function updateScore(index) {
+                // Get the selected risk
+                var selectedRisk = document.getElementById('risk' + index).value;
 
-                doc.setFontSize(15);  // Set font size to 15
-                doc.text('Risk ' + i + ': ' + selectedRisk + ', Score: ' + score, 10, 70 + i * 10);
+                // Get the corresponding score input box
+                var scoreInput = document.getElementById('score' + index);
+
+                // Update the score input box with the selected risk
+                scoreInput.value = selectedRisk;
+
+                // Update the total score
+                updateTotalScore();
             }
 
-            var total = document.getElementById('total').value;
-            doc.setFontSize(20);  // Set font size back to 20
-            doc.text('Total Score: ' + total, 10, 70 + 16 * 10 + 10);
+            function updateTotalScore() {
+                var totalScore = 0;
+                for (var i = 1; i <= 16; i++) {
+                    totalScore += Number(document.getElementById('score' + i).value);
+                }
+                document.getElementById('total').value = totalScore;
+            }
 
             // Save the PDF
             doc.save('Risk_Assessment_Form.pdf');
