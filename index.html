@@ -425,16 +425,23 @@
         <button type="button" id="pdf">Create PDF</button>
     </form>
     <script> 
-        function toggleOtherInput(inputId, otherInputId) {
-            console.log('toggleOtherInput function called'); // This line is new
-            var selectBox = document.getElementById(inputId);
-            var otherInput = document.getElementById(otherInputId);
+        function updateScore(scoreId) {
+            var riskSelect = document.getElementById("risk" + scoreId);
+            var scoreInput = document.getElementById("score" + scoreId);
+            var selectedOption = riskSelect.options[riskSelect.selectedIndex];
+            var selectedValue = parseInt(selectedOption.value);
+            scoreInput.value = selectedValue;
 
-            if (selectBox.value === 'Other') {
-                otherInput.style.display = 'block';
-            } else {
-                otherInput.style.display = 'none';
+            // Calculate total score
+            var totalScore = 0;
+            for (var i = 1; i <= 5; i++) { // Assuming you have 5 score inputs
+                var scoreInput = document.getElementById("score" + i);
+                totalScore += parseInt(scoreInput.value);
             }
+
+            // Set total score
+            var totalInput = document.getElementById("total");
+            totalInput.value = totalScore;
         }
     
     /* Script for exporting  */ 
