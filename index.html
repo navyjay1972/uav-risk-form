@@ -65,22 +65,26 @@
         input[type="date"]::-webkit-calendar-picker-indicator {
             display: none;
         }
+
         /* CSS for styling custom placeholder on mobile devices */
         @media only screen and (max-width: 767px) {
-            input[type="date"]::before {
-                content: attr(placeholder);
-                display: block;
-                margin-top: 10px;
+            input[type="date"] {
+                -webkit-appearance: none; /* Remove default appearance on mobile devices */
+                appearance: none;
+                background-color: #ffffff;
+                border: 1px solid #cccccc;
+                border-radius: 5px;
+                padding: 10px;
                 margin-bottom: 10px;
+                box-sizing: border-box;
+                font-size: 16px;
                 color: #808080;
             }
 
-            input[type="date"]:focus::before,
-            input[type="date"].has-value::before {
-                display: none;
+            input[type="date"]::placeholder {
+                color: #808080;
             }
         }
-
 
         button {
             padding: 10px;
@@ -177,9 +181,9 @@
                 <label for="date">Date:</label>
                 <input class="flex-item" type="date" color=black id="date" name="date">
                 <!--input class="flex-item" type="date" id="date" name="date" aria-label="Date"-->
-            </li>
-                <!--label for="location">Location:</label-->
+            </li>                
             <li>
+                <label for="location">Location:</label>
                 <input class="flex-item" type="text" placeholder="Location" id="location" name="location">
             </li>
                 <!--label for="uasType">UAS Type:</label-->
