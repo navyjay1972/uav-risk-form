@@ -159,6 +159,15 @@
             scoreInput.value = selectedValue;
         }
     }
+        function toggleOtherInput(selectId, inputId) {
+        var selectElement = document.getElementById(selectId);
+        var inputElement = document.getElementById(inputId);
+        if (selectElement.value === "Other") {
+            inputElement.style.display = "block";
+        } else {
+            inputElement.style.display = "none";
+        }
+    }
         function resetForm() {
             for (var i = 1; i <= 16; i++) {
                 document.getElementById("risk" + i).value = "0";
@@ -463,28 +472,6 @@
             doc.text('Location: ' + location, 10, 40);
             doc.text('UAS Type: ' + uasType, 10, 50);
             doc.text('Mission Type: ' + missionType, 10, 60);
-
-            function updateScore(index) {
-                // Get the selected risk
-                var selectedRisk = document.getElementById('risk' + index).value;
-
-                // Get the corresponding score input box
-                var scoreInput = document.getElementById('score' + index);
-
-                // Update the score input box with the selected risk
-                scoreInput.value = selectedRisk;
-
-                // Update the total score
-                updateTotalScore();
-            }
-
-            function updateTotalScore() {
-                var totalScore = 0;
-                for (var i = 1; i <= 16; i++) {
-                    totalScore += Number(document.getElementById('score' + i).value);
-                }
-                document.getElementById('total').value = totalScore;
-            }
 
             // Save the PDF
             doc.save('Risk_Assessment_Form.pdf');
