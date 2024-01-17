@@ -150,6 +150,7 @@
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
     <script>
+    window.onload = function() {
         function updateScore(scoreId) {
             var riskSelect = document.getElementById("risk" + scoreId);
             var scoreInput = document.getElementById("score" + scoreId);
@@ -157,6 +158,7 @@
             var selectedValue = parseInt(selectedOption.value);
             scoreInput.value = selectedValue;
         }
+    }
         function resetForm() {
             for (var i = 1; i <= 16; i++) {
                 document.getElementById("risk" + i).value = "0";
