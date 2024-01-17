@@ -147,7 +147,7 @@
         <ul class="flex-container">
             <li>
                 <label for="rpicName">RPIC:</label>
-                <select class="flex-item" id="rpicName" name="rpicName" placeholder="RPIC" onchange="toggleOtherInput()">
+                <select class="flex-item" id="rpicName" name="rpicName" placeholder="RPIC" onchange="toggleOtherInput('rpicName', 'otherRPIC')">
                     <option value="" disabled selected>Select RPIC</option>
                     <option value="Chris Kahn">Chris Kahn</option>
                     <option value="Jason Sladinski">Jason Sladinski</option>
@@ -161,7 +161,7 @@
             </li>
             <li>
                 <label for="rpicName">VO:</label>
-                <select class="flex-item" id="voName" name="voName" placeholder="VO">
+                <select class="flex-item" id="voName" name="voName" placeholder="VO" onchange="toggleOtherInput('voName', 'otherVO')">
                     <option value="" disabled selected>Select VO</option>
                     <option value="Chris Kahn">Chris Kahn</option>
                     <option value="Jason Sladinski">Jason Sladinski</option>
@@ -386,10 +386,10 @@
         <button type="button" id="pdf">Create PDF</button>
     </form>
     <script> 
-        function toggleOtherInput() {
+        function toggleOtherInput(inputId, otherInputId) {
             console.log('toggleOtherInput function called'); // This line is new
-            var selectBox = document.getElementById('rpicName');
-            var otherInput = document.getElementById('otherRPIC');
+            var selectBox = document.getElementById(inputId);
+            var otherInput = document.getElementById(otherInputId);
 
             if (selectBox.value === 'Other') {
                 otherInput.style.display = 'block';
