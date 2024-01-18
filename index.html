@@ -251,7 +251,7 @@
                     <option value="Photography">Photography</option>
                     <option value="Other">Other</option>
                 </select>
-                <input class="flex-item" type="text" placeholder="Enter name" id="otherMission" name="otherMission" style="display: none;">s
+                <input class="flex-item" type="text" placeholder="Enter name" id="otherMission" name="otherMission" style="display: none;">
             </li>
         </ul>
         <!--div class="col-3">
@@ -475,8 +475,12 @@
 
             // Collecting information from the div portions at the top
             var rpicName = document.getElementById('rpicName').value;
-            var date = document.getElementById('date').value;
+            var otherRPIC = document.getElementById('otherRPIC').value;
+            if (otherSelected){
+                var rpicName = document.getElementById('otherRPIC').value;
+            }
             var voName = document.getElementById('voName').value;
+            var date = document.getElementById('date').value;
             var location = document.getElementById('location').value;
             var uasType = document.getElementById('uasType').value;
             var missionType = document.getElementById('missionType').value;
@@ -503,8 +507,11 @@
             // Add the information to the PDF
             doc.setFontSize(20);  // Set font size to 20
             doc.text('RPIC Name: ' + rpicName, 10, 10);
-            doc.text('Date: ' + date, 10, 20);
+            if (otherSelected){
+                doc.text('RPIC Name: ' + otherRPIC, 10, 10);
+            }
             doc.text('VO Name: ' + voName, 10, 30);
+            doc.text('Date: ' + date, 10, 20);
             doc.text('Location: ' + location, 10, 40);
             doc.text('UAS Type: ' + uasType, 10, 50);
             doc.text('Mission Type: ' + missionType, 10, 60);
