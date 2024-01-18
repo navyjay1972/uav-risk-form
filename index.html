@@ -151,17 +151,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
     <script>
     <script>
-    function handleInput(event) {
-        if (/Mobi|Android/i.test(navigator.userAgent)) {
-            event.target.type = 'date';
-        } else {
-            event.target.onfocus = function() {
-                this.type = 'date';
-                this.onfocus = null;
+    window.onload = function() {
+        function handleInput(event) {
+            if (/Mobi|Android/i.test(navigator.userAgent)) {
+                event.target.type = 'date';
+            } else {
+                event.target.onfocus = function() {
+                    this.type = 'date';
+                    this.onfocus = null;
+                }
             }
         }
     }
-
     function handleBlur(event) {
         if (!event.target.value) {
             event.target.type = 'text';
@@ -232,7 +233,8 @@
             </li>
             <li>
                 <label for="date">Date:</label>
-                <input class="flex-item" type="text" id="date" placeholder="Enter date" ontouchstart="(this.type='date')" onblur="(this.type='text')">
+                <input class="flex-item" type="text" id="date" placeholder="Enter date" onfocus="handleInput(event)" onblur="handleBlur(event)">
+
                 <!--input class="flex-item" type="date" color=black id="date" name="date"-->
                 <!--input class="flex-item" type="date" id="date" name="date" aria-label="Date"-->
             </li>                
