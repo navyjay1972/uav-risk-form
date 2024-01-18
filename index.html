@@ -150,25 +150,6 @@
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
     <script>
-    <script>
-    window.onload = function() {
-        function handleInput(event) {
-            if (/Mobi|Android/i.test(navigator.userAgent)) {
-                event.target.type = 'date';
-            } else {
-                event.target.onclick = function() {
-                    this.type = 'date';
-                    this.onclick = null;
-                }
-            }
-        }
-    }
-    function handleBlur(event) {
-        if (!event.target.value) {
-            event.target.type = 'text';
-        }
-    }
-
     window.onload = function() {
         function updateScore(scoreId) {
             var riskSelect = document.getElementById("risk" + scoreId);
@@ -233,8 +214,7 @@
             </li>
             <li>
                 <label for="date">Date:</label>
-                <input class="flex-item" type="text" id="date" placeholder="Enter date" onclick="handleInput(event)" onblur="handleBlur(event)">
-
+                <input class="flex-item" type="text" id="date" placeholder="Enter date" onclick="(this.type='date')" ontouchstart="(this.type='date')" onblur="(this.type='text')">
                 <!--input class="flex-item" type="date" color=black id="date" name="date"-->
                 <!--input class="flex-item" type="date" id="date" name="date" aria-label="Date"-->
             </li>                
