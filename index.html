@@ -156,9 +156,9 @@
             if (/Mobi|Android/i.test(navigator.userAgent)) {
                 event.target.type = 'date';
             } else {
-                event.target.onfocus = function() {
+                event.target.onclick = function() {
                     this.type = 'date';
-                    this.onfocus = null;
+                    this.onclick = null;
                 }
             }
         }
