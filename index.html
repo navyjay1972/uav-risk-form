@@ -475,10 +475,6 @@
 
             // Collecting information from the div portions at the top
             var rpicName = document.getElementById('rpicName').value;
-            var otherRPIC = document.getElementById('otherRPIC').value;
-            if (otherSelected){
-                var rpicName = document.getElementById('otherRPIC').value;
-            }
             var voName = document.getElementById('voName').value;
             var date = document.getElementById('date').value;
             var location = document.getElementById('location').value;
@@ -507,9 +503,6 @@
             // Add the information to the PDF
             doc.setFontSize(20);  // Set font size to 20
             doc.text('RPIC Name: ' + rpicName, 10, 10);
-            if (otherSelected){
-                doc.text('RPIC Name: ' + otherRPIC, 10, 10);
-            }
             doc.text('VO Name: ' + voName, 10, 30);
             doc.text('Date: ' + date, 10, 20);
             doc.text('Location: ' + location, 10, 40);
