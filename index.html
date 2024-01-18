@@ -215,8 +215,6 @@
             <li>
                 <label for="date">Date:</label>
                 <input class="flex-item" type="text" id="date" placeholder="Enter date" onclick="(this.type='date')" ontouchstart="(this.type='date')" onblur="(this.type='text')">
-                <!--input class="flex-item" type="date" color=black id="date" name="date"-->
-                <!--input class="flex-item" type="date" id="date" name="date" aria-label="Date"-->
             </li>                
             <li>
                 <div class="input-group">
@@ -244,9 +242,16 @@
                 </select>
                 <input class="flex-item" type="text" placeholder="Enter name" id="otherUAS" name="otherUAS" style="display: none;">
             </li>
-                <!--label for="missionType">Mission Type:</label-->
+                <label for="missionType">Mission Type:</label>
             <li>
-                <input class="flex-item" type="text" placeholder="Mission Type" id="missionType" name="missionType">
+                <Select class="flex-item" id="missionType" placeholder="Mission Type" onchange="toggleOtherInput('missionType', 'otherMission')">
+                    <option value="" disabled selected>Select Mission Type</option>
+                    <option value="Mapping">Mapping</option>
+                    <option value="Inspection">Inspection</option>
+                    <option value="Photography">Photography</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input class="flex-item" type="text" placeholder="Enter name" id="otherMission" name="otherMission" style="display: none;">s
             </li>
         </ul>
         <!--div class="col-3">
