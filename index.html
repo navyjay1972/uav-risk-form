@@ -476,6 +476,26 @@
             var uasType = document.getElementById('uasType').value;
             var missionType = document.getElementById('missionType').value;
 
+            // Collecting risk assessment and total scores in the table
+            var risk1 = document.getElementById('risk1').value;
+            var risk2 = document.getElementById('risk2').value;
+            var risk3 = document.getElementById('risk3').value;
+            var risk4 = document.getElementById('risk4').value;
+            var risk5 = document.getElementById('risk5').value;
+            var risk6 = document.getElementById('risk6').value;
+            var risk7 = document.getElementById('risk7').value;
+            var risk8 = document.getElementById('risk8').value;
+            var risk9 = document.getElementById('risk9').value;
+            var risk10 = document.getElementById('risk10').value;
+            var risk11 = document.getElementById('risk11').value;
+            var risk12 = document.getElementById('risk12').value;
+            var risk13 = document.getElementById('risk13').value;
+            var risk14 = document.getElementById('risk14').value;
+            var risk15 = document.getElementById('risk15').value;
+            var risk16 = document.getElementById('risk16').value;
+            var total = document.getElementById('total').value;
+
+            // Add the information to the PDF
             doc.setFontSize(20);  // Set font size to 20
             doc.text('RPIC Name: ' + rpicName, 10, 10);
             doc.text('Date: ' + date, 10, 20);
@@ -483,6 +503,26 @@
             doc.text('Location: ' + location, 10, 40);
             doc.text('UAS Type: ' + uasType, 10, 50);
             doc.text('Mission Type: ' + missionType, 10, 60);
+
+            // Add the table to the PDF
+            doc.text('Crew Flight Experience: ' + risk1, 10, 70);
+            doc.text('Crew Currency: ' + risk2, 10, 80);
+            doc.text('Crew Fatigue: ' + risk3, 10, 90);
+            doc.text('Crew Duty Day: ' + risk4, 10, 100);
+            doc.text('Mission Type: ' + risk5, 10, 110);
+            doc.text('Hardware Changes to UAS: ' + risk6, 10, 120);
+            doc.text('Firmware changes to UAS: ' + risk7, 10, 130);
+            doc.text('Flight conditions: ' + risk8, 10, 140);
+            doc.text('Visibility: ' + risk9, 10, 150);
+            doc.text('Ceiling in Feet AGL: ' + risk10, 10, 160);
+            doc.text('Winds: ' + risk11, 10, 170);
+            doc.text('SMS Risk Matrix Results: ' + risk12, 10, 180);
+            doc.text('Local Authorities Notified: ' + risk13, 10, 190);
+            doc.text('Airspace Traffic: ' + risk14, 10, 200);
+            doc.text('Temperture: ' + risk15, 10, 210);
+            doc.text('Local Ops Notified: ' + risk16, 10, 220);
+            doc.text('Total Score: ' + total, 10, 230);
+
 
             // Save the PDF
             doc.save('Risk_Assessment_Form.pdf');
