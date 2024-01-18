@@ -231,7 +231,18 @@
             </li>
                 <!--label for="uasType">UAS Type:</label-->
             <li>
-                <input class="flex-item"  type="text" placeholder="UAS Type" id="uasType" name="uasType">
+                <label for="uasType">UAS Type:</label>
+                <select class="flex-item" id="uasType" name="uasType" placeholder="UAS Type" onchange="toggleOtherInput('uasType', 'otherUAS')">
+                    <option value="" disabled selected>Select UAS Type</option>
+                    <option value="DJI Mavic 3E">DJI Mavic 3E</option>
+                    <option value="DJI Mavic 3T">DJI Mavic 3T</option>
+                    <option value="DJI Matrice 300 ">DJI Matrice 300 RTK</option>
+                    <option value="DJI Phantom 4 V2">DJI Phantom 4 V2</option>
+                    <option value="Wingtra">Wingtra One</option>
+                    <option value="Cencys Sentaero">Censys Sentaero</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input class="flex-item" type="text" placeholder="Enter name" id="otherUAS" name="otherUAS" style="display: none;">
             </li>
                 <!--label for="missionType">Mission Type:</label-->
             <li>
