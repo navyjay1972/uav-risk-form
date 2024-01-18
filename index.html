@@ -150,6 +150,24 @@
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
     <script>
+    <script>
+    function handleInput(event) {
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            event.target.type = 'date';
+        } else {
+            event.target.onfocus = function() {
+                this.type = 'date';
+                this.onfocus = null;
+            }
+        }
+    }
+
+    function handleBlur(event) {
+        if (!event.target.value) {
+            event.target.type = 'text';
+        }
+    }
+
     window.onload = function() {
         function updateScore(scoreId) {
             var riskSelect = document.getElementById("risk" + scoreId);
